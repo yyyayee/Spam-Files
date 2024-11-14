@@ -1,15 +1,13 @@
-<!-- templates/index.html -->
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spam or Ham Detection</title>
+    <title>Spam Analysis Application</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background-color: #e0f7fa;
             color: #333;
             margin: 0;
             padding: 20px;
@@ -33,8 +31,15 @@
             border: 1px solid #ddd;
             font-size: 16px;
             resize: vertical;
+            box-sizing: border-box;
         }
-        input[type="submit"] {
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* เว้นระยะห่างระหว่างปุ่ม */
+            margin-top: 10px;
+        }
+        input[type="submit"], input[type="button"] {
             background-color: #007bff;
             color: #fff;
             border: none;
@@ -44,7 +49,7 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        input[type="submit"]:hover {
+        input[type="submit"]:hover, input[type="button"]:hover {
             background-color: #0056b3;
         }
         .result {
@@ -53,20 +58,17 @@
             border-radius: 4px;
             background: #e9ecef;
         }
-        .result h2 {
-            margin-top: 5px; /* หรือปรับค่าตามต้องการ */
-        }
-        .result p {
-            margin: 0;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Spam or Ham Detection</h1>
-        <form method="post">
-            <textarea name="message" rows="4" cols="50" placeholder="ป้อนข้อความที่ต้องการทดสอบ..." required>{{ request.form['message'] }}</textarea><br><br>
-            <input type="submit" value="ตรวจสอบ">
+        <h1>Spam Analysis Application</h1>
+        <form method="post" id="checkForm">
+            <textarea name="message" rows="4" cols="50" placeholder="ป้อนข้อความที่ต้องการทดสอบ..." required>{{ request.form.get('message', '') }}</textarea><br><br>
+            <div class="button-group">
+                <input type="button" value="ล้างข้อมูล" onclick="clearForm()">
+                <input type="submit" value="ตรวจสอบ">
+            </div>
         </form>
         <div class="result">
             <h2>ผลลัพธ์:</h2>
@@ -74,15 +76,11 @@
         </div>
     </div>
     <script>
-        // JavaScript to preserve form data
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.querySelector('form');
-            const textarea = form.querySelector('textarea');
-
-            form.addEventListener('submit', function() {
-                textarea.value = textarea.value;
-            });
-        });
+        function clearForm() {
+            document.getElementById("checkForm").reset(); // ล้างข้อมูลในฟอร์ม
+            document.querySelector('.result p').textContent = ''; // ล้างผลลัพธ์
+            document.querySelector('textarea').value = ''; // ล้างข้อความในกล่องป้อนข้อความ
+        }
     </script>
 </body>
 </html>
