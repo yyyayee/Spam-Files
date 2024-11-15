@@ -1,0 +1,88 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spam or Ham Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007bff;
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            resize: vertical;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            background: #e9ecef;
+        }
+        .result h2 {
+            margin-top: 5px; /* หรือปรับค่าตามต้องการ */
+        }
+        .result p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Spam or Ham Detection</h1>
+        <form method="post">
+            <textarea name="message" rows="4" cols="50" placeholder="ป้อนข้อความที่ต้องการทดสอบ..." required>{{ request.form['message'] }}</textarea><br><br>
+            <input type="submit" value="ตรวจสอบ">
+        </form>
+        <div class="result">
+            <h2>ผลลัพธ์:</h2>
+            <p>{{ result }}</p>
+        </div>
+    </div>
+    <script>
+        // JavaScript to preserve form data
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            const textarea = form.querySelector('textarea');
+
+            form.addEventListener('submit', function() {
+                textarea.value = textarea.value;
+            });
+        });
+    </script>
+</body>
+</html>
