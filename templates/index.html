@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spam Analysis Application</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212;
+            color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            font-size: 35px; /* เพิ่มขนาดของข้อความ */
+            color: #ffcc00;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(255, 204, 0, 0.3);
+        }
+        .form-control {
+            background-color: #333333;
+            color: #f0f0f0;
+            border: 1px solid #555555;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .form-control::placeholder {
+            color: #b0b0b0;
+        }
+        .btn {
+            background-color: #ffcc00;
+            color: #1e1e1e;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            transition: box-shadow 0.3s ease;
+            border: none;
+            padding: 8px 16px; /* ลดขนาดปุ่ม */
+            font-size: 14px; /* ลดขนาดตัวอักษรในปุ่ม */
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        .btn:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            background-color: #e6b800;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            background: #333333;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .result h2 {
+            font-size: 20px;
+            color: #ffcc00;
+            text-shadow: 1px 1px 3px rgba(255, 204, 0, 0.3);
+        }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Spam Analysis Application</h1>
+        <form method="post" id="checkForm" class="mt-4">
+            <div class="mb-3">
+                <textarea class="form-control" name="message" rows="4" placeholder="ป้อนข้อความที่ต้องการทดสอบ..." required>{{ request.form.get('message', '') }}</textarea>
+            </div>
+            <div class="btn-container">
+                <button type="button" class="btn btn-secondary" onclick="clearForm()">ล้างข้อมูล</button>
+                <button type="submit" class="btn btn-primary">ตรวจสอบ</button>
+            </div>
+        </form>
+        <div class="result mt-4">
+            <h2>ผลลัพธ์ :</h2>
+            <p>{{ result }}</p>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function clearForm() {
+            document.getElementById("checkForm").reset();
+            document.querySelector('.result p').textContent = '';
+            document.querySelector('textarea').value = '';
+        }
+    </script>
+</body>
+</html>
